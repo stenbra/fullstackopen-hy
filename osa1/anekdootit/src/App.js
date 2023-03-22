@@ -33,7 +33,7 @@ const App = () => {
     updatedVotes[selected] += 1
     setVotes(updatedVotes)
     setMost(updatedVotes.indexOf(Math.max(...updatedVotes)))
-    setTotal(updatedVotes+1)
+    setTotal(updatedVotes +1)
   }
   const Anecdote = ({text,votes}) =>(
     <div><p>{text} </p><p>Has {votes} votes</p></div>
