@@ -1,5 +1,10 @@
 import { useState } from 'react'
 
+
+const StatisticsLine=({text,value}) =>(
+  <tr><td>{text}</td> <td>{value}</td></tr>
+)
+
 const Stats = (props) => {
   if (props.total == 0) {
     return (
@@ -9,25 +14,25 @@ const Stats = (props) => {
     )  
   }  
   return (
-    <div>    
-      <strong>
-        <p>Good {props.good}</p>
-        <p>Neutral {props.neutral}</p>
-        <p>Bad {props.bad}</p>
-        <p>All {props.total}</p>
-        <p>Avarage {(props.good-props.bad)/props.total}</p>
-        <p>Positive {props.good/props.total*100}%</p>
-    </strong>     
+    <div> 
+      <table>
+        <StatisticsLine text="Good" value={props.good}/>
+        <StatisticsLine text="Neutral" value={props.neutral}/>
+        <StatisticsLine text="Bad" value={props.bad}/>
+        <StatisticsLine text="All" value={props.total}/>
+        <StatisticsLine text="Avarage" value={((props.good-props.bad)/props.total).toString()}/>
+        <StatisticsLine text="Positive" value={(props.good/props.total*100).toString().concat("%")}/>    
+      </table>   
     </div>  
   )
 }
-
 
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>
     {text}  
   </button>
 )
+
 
 
 const App = () => {
