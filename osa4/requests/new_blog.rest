@@ -1,8 +1,9 @@
 POST http://localhost:3003/api/blogs
+Content-Type: application/json
 
 {
-  title: "THE BLOG",
-  author: "Gigantti Miesman",
-  url: "https://www.garbo.io/blog/craigslist-scams",
-  likes: 22
+  "title": "THE BLOG",
+  "author": "Gigantti Miesman",
+  "url": "https://www.garbo.io/blog/craigslist-scams",
+  "likes": 22
 }
