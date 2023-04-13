@@ -1,0 +1,8 @@
+POST http://localhost:3003/api/blogs
+
+{
+  title: "THE BLOG",
+  author: "Gigantti Miesman",
+  url: "https://www.garbo.io/blog/craigslist-scams",
+  likes: 22
+}
