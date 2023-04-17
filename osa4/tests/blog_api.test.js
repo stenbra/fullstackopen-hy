@@ -26,13 +26,13 @@ const initialBlogs = [
   }
 ]
   
-  beforeEach(async () => {
-    await Blog.deleteMany({})
-    let blogObject = new Blog(initialBlogs[0])
-    await blogObject.save()
-    blogObject = new Blog(initialBlogs[1])
-    await blogObject.save()
-  })
+beforeEach(async () => {
+  await Blog.deleteMany({})
+  let blogObject = new Blog(initialBlogs[0])
+  await blogObject.save()
+  blogObject = new Blog(initialBlogs[1])
+  await blogObject.save()
+})
 
 test('blogs are returned as json', async () => {
   await api
@@ -43,14 +43,36 @@ test('blogs are returned as json', async () => {
 
 
 test('all blogs are returned', async () => {
-    const response = await api.get('/api/blogs')
-    expect(response.body).toHaveLength(initialBlogs.length)
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlogs.length)
 })
 
 
 test('The unique identifier property is named id', async () => {
-    const blogs = await Blog.find({})
-    expect(blogs[0].id).toBeDefined()
+  const blogs = await Blog.find({})
+  expect(blogs[0].id).toBeDefined()
+})
+
+test('adding blogs work', async() => {
+  const blog = {
+    title: 'Canonical string reduction',
+    author: 'Edsger W. Dijkstra',
+    url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
+    likes: 12
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(blog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const updatedBlogs = await Blog.find({})
+
+  expect(updatedBlogs.length).toBe(initialBlogs.length + 1)
+
+  const existingBlogs = updatedBlogs.map(n => n.title)
+  expect(existingBlogs).toContain('Canonical string reduction')
 })
 
 afterAll(async () => {
