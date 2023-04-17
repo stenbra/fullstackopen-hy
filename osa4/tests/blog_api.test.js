@@ -58,7 +58,7 @@ describe('adding blogs',()=>{
   })
 })
 
-describe('deletion of a note', () => {
+describe('deletion of a blog', () => {
   test('succeeds with status code 204 if id is valid', async () => {
 
 
@@ -78,6 +78,25 @@ describe('deletion of a note', () => {
     const title = blogsAfterDeletion.map(r => r.title)
   
     expect(title).not.toContain(blogToDelete.title)
+  })
+})
+
+describe('Update a blog', () => {
+  test('PUT api/Blogs/:id', async () => {
+    const blogs = await helper.blogsInDb()
+    const blogToUpdate = blogs[0]
+    
+    blogToUpdate.title = 'ugabuga'
+    
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(blogToUpdate)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+    
+    const updatedBlogs = await helper.blogsInDb()
+    const blogList = updatedBlogs.map(u => u.title)
+    expect(blogList).toContain('ugabuga')
   })
 })
   
