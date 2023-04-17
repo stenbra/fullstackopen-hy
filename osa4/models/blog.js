@@ -1,10 +1,22 @@
 const mongoose = require('mongoose')
 
-const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
+const blogSchema = mongoose.Schema({
+  title: {
+    type: String
+  },
+  author: {
+    type: String
+  },
+  url: {
+    type: String
+  },
+  likes: {
+    type: Number
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
 })
 
 
