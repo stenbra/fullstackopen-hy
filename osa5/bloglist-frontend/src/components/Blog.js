@@ -31,7 +31,7 @@ const Blog = (props) => {
   const removeBlog = () => props.deleteBlog(blog)
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='Blog'>
       <div>
         <p>{blog.title} - {blog.author} <button onClick={toggleVisibility}>{buttonLabel}</button></p>
       </div>
