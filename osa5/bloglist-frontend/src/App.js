@@ -37,7 +37,7 @@ const App = () => {
 
   const blogFormRef = useRef()
 
-  useEffect(() => 
+  useEffect(() =>
   {
     async function FetchData(){
       const blogs = await blogService.getAll()
@@ -45,42 +45,42 @@ const App = () => {
     }
     FetchData()
   }, [])
-  useEffect(() => 
+  useEffect(() =>
   {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       blogService.setToken(user.token)
-    }  
+    }
   }, [])
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
-        <h2>Login to application</h2>
-        <Notification message={errorMessage} />
-        <div>
+      <h2>Login to application</h2>
+      <Notification message={errorMessage} />
+      <div>
           username
-          <input
-           type="text"
-           value={username}
-           name="Username"
-           onChange={({ target }) => setUsername(target.value)}
-           />
-        </div>
-        <div>
+        <input
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
           password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <button type="submit">login</button>
+        />
+      </div>
+      <button type="submit">login</button>
     </form>
   )
-  const showBlogs = () =>(
+  const showBlogs = () => (
     <div>
       <h2>blogs</h2>
       <SuccNotification message={succMessage} />
@@ -105,7 +105,7 @@ const App = () => {
       })
       window.localStorage.setItem(
         'loggedNoteappUser', JSON.stringify(user)
-      ) 
+      )
       setTimeout(() => {
         logout()
       }, 1000*60*15)
@@ -113,7 +113,7 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-    } 
+    }
     catch (exception) {
       setErrorMessage('wrong username or password')
       setTimeout(() => {
@@ -121,7 +121,7 @@ const App = () => {
       }, 5000)
     }
   }
-  const logout=()=>{
+  const logout=() => {
     window.localStorage.removeItem('loggedNoteappUser')
     setUser(null)
   }
@@ -139,8 +139,8 @@ const App = () => {
 
   const updateBlog = async (blog) => {
     try {
-      console.log("we here")
-      const updatedBlog = await blogService.update(blog)
+      console.log('we here')
+      await blogService.update(blog)
       const blogs = await blogService.getAll()
       setBlogs(blogs)
     } catch(exception) {
@@ -170,14 +170,14 @@ const App = () => {
     }
   }
 
-  const SortByLikes = (x,y)=>y.likes - x.likes
+  const SortByLikes = (x,y) => y.likes - x.likes
   return (
     <div>
-        {user === null && loginForm()}
-        {user && <div>
-         {showBlogs()}
+      {user === null && loginForm()}
+      {user && <div>
+        {showBlogs()}
       </div>
-    }   
+      }
     </div>
   )
 }

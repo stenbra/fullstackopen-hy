@@ -13,9 +13,9 @@ const Blog = (props) => {
   const [visible, setVisible] = useState(false)
   const showWhenVisible = { display: visible ? '' : 'none' }
 
-  const buttonLabel = visible ? "hide" :"view"
+  const buttonLabel = visible ? 'hide' :'view'
   const blog = props.blog
-  
+
   const toggleVisibility = () => {
     setVisible(!visible)
   }
@@ -37,11 +37,11 @@ const Blog = (props) => {
       </div>
       <div style={showWhenVisible}>
         <p>{blog.url}</p>
-        <p>likes {blog.likes == undefined || blog.likes == null || blog.likes == NaN ? 0: blog.likes}<button onClick={Like}>like</button></p>
-        {blog.user ?<p>{blog.user.name}</p>:""}
+        <p>likes {blog.likes}<button onClick={Like}>like</button></p>
+        {blog.user ?<p>{blog.user.name}</p>:''}
         <button onClick={removeBlog}>remove</button>
       </div>
-    </div> 
+    </div>
   )
 }
 
